@@ -5,3 +5,4 @@ Yu Usui: <https://github.com/spatiotemporalData2023/USUI-Yu/blob/main/Day05/R-tr
 
 Faadhil As sayfullooh : https://github.com/spatiotemporalData2023/AS-SAYFULLOOH_Faadhil/blob/main/day05/Spatio_Algorithm.ipynb
 
+Kento Yano : <https://github.com/spatiotemporalData2023/YANO_kento/blob/main/day05/R-Tree.ipynb>
