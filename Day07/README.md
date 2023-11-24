@@ -9,7 +9,12 @@ Kento Yano : <https://github.com/spatiotemporalData2023/YANO_kento/blob/main/day
 
 # distribution
 パワポ作成
+
 Yu Usui: 1-6p </br>
 Kento Yano: 7-8p </br>
 Yugo Okamoto: 9-10p </br>
 Faadhil As sayfullooh: 11-17p </br>
+
+スクラッチ実装:Faadhil As sayfullooh </br>
+性能比較:Yu Usui, Kento Yano, Yugo Okamoto
+
