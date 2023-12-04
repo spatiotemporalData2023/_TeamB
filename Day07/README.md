@@ -1,20 +1,17 @@
-# 個人のソースコード
-Yugo Okamoto: <https://github.com/spatiotemporalData2023/OKAMOTO_Yugo/blob/main/day05/rtree_compare.ipynb>
+### Presentation: [google drive](https://docs.google.com/presentation/d/10WwRknRf1FvEzxfvzM7_oIG4t2INsDyZ/edit?usp=sharing&ouid=108021310770090228664&rtpof=true&sd=true)
+---
 
-Yu Usui: <https://github.com/spatiotemporalData2023/USUI-Yu/blob/main/Day05/R-treeVSLinear.ipynb>
+### 個人のソースコード
+Ahmed Almohanadi: https://github.com/spatiotemporalData2023/ahmed_almohanadi/blob/main/day06/DBSCAN.ipynb
 
-Faadhil As sayfullooh : https://github.com/spatiotemporalData2023/AS-SAYFULLOOH_Faadhil/blob/main/day05/Spatio_Algorithm.ipynb
+Yugo Okamoto:
 
-Kento Yano : <https://github.com/spatiotemporalData2023/YANO_kento/blob/main/day05/R-Tree.ipynb>
+Yu Usui: 
 
-# distribution
-パワポ作成
+Faadhil As sayfullooh : 
 
-Yu Usui: 1-6p </br>
-Kento Yano: 7-8p </br>
-Yugo Okamoto: 9-10p </br>
-Faadhil As sayfullooh: 11-17p 
+Kento Yano : 
 
-スクラッチ実装:Faadhil As sayfullooh </br>
-性能比較:Yu Usui, Kento Yano, Yugo Okamoto
+
+
 
