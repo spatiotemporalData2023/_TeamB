@@ -4,7 +4,7 @@
 ### 個人のソースコード
 Ahmed Almohanadi: https://github.com/spatiotemporalData2023/ahmed_almohanadi/blob/main/day06/DBSCAN.ipynb
 
-Yugo Okamoto:
+Yugo Okamoto:　https://github.com/spatiotemporalData2023/OKAMOTO_Yugo/blob/main/day06/DBSCAN_handmade.ipynb
 
 Yu Usui: 
 
