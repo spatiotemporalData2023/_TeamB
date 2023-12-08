@@ -10,7 +10,7 @@ Yu Usui:
 
 Faadhil As sayfullooh : 
 
-Kento Yano : 
+Kento Yano : https://github.com/spatiotemporalData2023/YANO_kento/blob/main/day06/dbscan.ipynb
 
 
 
