@@ -2,11 +2,18 @@
 // let lat = 35.7100069; // 緯度
 // let lng = 139.8108103; // 経度
 
-//栃木
-let lat = 36.565912;
-let lng = 139.883592;
+// ページロード時にクエリパラメータを取得
+const urlParams = new URLSearchParams(window.location.search);
 
-let zoom = 16; 
+// 各変数を取得
+const lat = parseFloat(urlParams.get('lat'));
+const lng = parseFloat(urlParams.get('lng'));
+const path = urlParams.get('path');
+
+// ここで取得した変数を使用してページの表示をカスタマイズ
+// 例: ページに変数の値を表示するなど
+
+let zoom = 11; 
 
 // 地図の生成
 let map = L.map("map"); 
@@ -23,7 +30,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 ).addTo(map);
 
 
-fetch("./data/P29-21_09.geojson")
+fetch(path)
   .then(response => response.json())
   // GeoJSONを地図に追加
   .then(data => {

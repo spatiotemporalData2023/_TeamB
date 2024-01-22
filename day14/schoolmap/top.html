@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="top.css">
+    <title>関東の病院リスト</title>
+</head>
+<body>
+    <div style="margin-bottom: 100px;">
+        <h1>関東の学校リスト</h1>
+        <h2>~学校はどこに集まってる？~</h2>
+        <p>こんにちは！このサイトでは各都道府県の情報と、都道府県内の学校の位置を地図に表示します。<br>
+        また、学校の位置はDBSCANを使って色分けをしています。<br>
+        どこに学校が集中しているかが見やすいです。<br>
+        </p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>都道府県</th>
+                <th>県庁所在地</th>
+                <th>人口</th>
+                <th>人口密度</th>
+                <th>学校の数</th>
+                <th>ボタン</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>茨城</td>
+                <td>水戸市</td>
+                <td>2,867,009人</td>
+                <td>595人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 36.341737, lng: 140.446824, path: './data/P29-21_08.geojson' })">茨城</button></td>
+            </tr>
+            <tr>
+                <td>栃木</td>
+                <td>宇都宮市</td>
+                <td>1,933,146人</td>
+                <td>345人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 36.565912, lng: 139.883592, path: './data/P29-21_09.geojson' })">栃木</button></td>
+            </tr>
+            <tr>
+                <td>群馬</td>
+                <td>前橋市</td>
+                <td>1,939,110人</td>
+                <td>356人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 36.390688, lng: 139.060453, path: './data/P29-21_10.geojson' })">群馬</button></td>
+            </tr>
+            <tr>
+                <td>埼玉</td>
+                <td>さいたま市</td>
+                <td>7,344,765人</td>
+                <td>1975人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 35.857033, lng: 139.649012, path: './data/P29-21_11.geojson' })">埼玉</button></td>
+            </tr>
+            <tr>
+                <td>千葉</td>
+                <td>千葉市</td>
+                <td>6,284,480人</td>
+                <td>1264人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 35.604560, lng: 140.123154, path: './data/P29-21_12.geojson' })">千葉</button></td>
+            </tr>
+            <tr>
+                <td>東京</td>
+                <td>東京都</td>
+                <td>14,047,594人</td>
+                <td>6215人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 35.689501, lng: 139.691722, path: './data/P29-21_13.geojson' })">東京</button></td>
+            </tr>
+            <tr>
+                <td>神奈川</td>
+                <td>横浜市</td>
+                <td>9,237,337人</td>
+                <td>6462人/km²</td>
+                <td>0</td>
+                <td><button onclick="navigateToPage('index.html', { lat: 35.447734, lng: 139.642537, path: './data/P29-21_14.geojson' })">神奈川</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="top.js"></script>
+</body>
+</html>
