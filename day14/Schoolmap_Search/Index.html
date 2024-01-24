@@ -124,6 +124,12 @@ Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
 document.getElementById('saveLocation').onclick = function() {
     var displayElement = document.getElementById('locationDisplay');
     var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
+
+    if (!displayElement || !nearestDisplayElement) {
+        console.error('One or more display elements not found!');
+        return;
+    }
+    
     if (lastClickedLocation) {
         displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
         
