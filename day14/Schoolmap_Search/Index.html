@@ -110,18 +110,25 @@ document.getElementById('saveLocation').onclick = function() {
     var displayElement = document.getElementById('locationDisplay');
     var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
 
-    // ...rest of the code to check display elements...
+    if (!displayElement || !nearestDisplayElement) {
+        console.error('One or more display elements not found!');
+        return;
+    }
 
     if (lastClickedLocation && combinedFeatureCollection) {
         displayElement.textContent = 'Saved location: ' + JSON.stringify(lastClickedLocation);
 
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
-        nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
+        const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection); // Local variable
 
         // ...rest of the code to process nearest point...
 
         if (nearest && nearest.properties && 'P29_004' in nearest.properties) {
-            // ...code to display nearest location and draw line...
+            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
+
+            // Add marker and line here
+            // ...
+
         } else {
             nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
         }
