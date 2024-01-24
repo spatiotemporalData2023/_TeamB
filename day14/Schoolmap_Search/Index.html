@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+        <style>
+            .center-content {
+                text-align: center; /* Center text */
+                margin: auto; /* Center the div horizontally */
+                max-width: 800px; /* Optional: set a max-width for the content */
+                padding: 10px; /* Optional: add some padding */
+            }
+
+            #saveLocation, #locationDisplay {
+                display: inline-block; /* Display inline */
+                vertical-align: middle; /* Align vertically */
+                margin: 10px 5px; /* Spacing around elements */
+            }
+
+            #locationDisplay {
+                border: 1px solid #ddd;
+                background-color: #f9f9f9;
+                padding: 5px 10px;
+                max-width: 400px; /* Limit the width */
+                overflow: hidden; /* Prevent overflow */
+                white-space: nowrap; /* Prevent text wrapping */
+                text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+            }
+
+            #mapid {
+                height: 700px;
+            }
+
+        </style>
+    </head>
+<body>
+
+    <div class="center-content">>
+        <h1>Kanto school list</h1>
+        <h2>~Which school is close to your location？~</h2>
+        <p>Hello! This site displays information about school location near to your location in Kanto area。<br>
+       You just need to click your location on the map。<br>
+        Our system will find out the nearest school from you :)。<br>
+        </p>
+    </div>
+
+    <button id="saveLocation">Save Location</button>
+    <div id="locationDisplay">Saved location will appear here</div>
+    <div id="mapid"></div>
+
+    <script>
+        var mymap = L.map('mapid').setView([35.66161697606394, 139.36643125161388], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+            
+        var marker = L.marker([35.66161697606394, 139.36643125161388]).addTo(mymap);
+        marker.bindPopup('You are here at Tokyo Metropolitan University.').openPopup();
+
+        var lastClickedLocation = null;
+
+        function onMapClick(e) {
+            marker.setLatLng(e.latlng)
+                  .bindPopup("You clicked the map at " + e.latlng)
+                  .openPopup();
+
+            lastClickedLocation = e.latlng;
+        }
+
+        mymap.on('click', onMapClick);
+
+        document.getElementById('saveLocation').onclick = function() {
+            var displayElement = document.getElementById('locationDisplay');
+            if (lastClickedLocation) {
+                displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
+            } else {
+                displayElement.textContent = 'No location selected to save';
+            }
+        };
+
+        // ... Rest of your existing code ...
+
+    </script>
+</body>
+</html>
 
