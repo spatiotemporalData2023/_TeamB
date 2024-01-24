@@ -122,7 +122,10 @@ Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
 
 document.getElementById('saveLocation').onclick = function() {
     var displayElement = document.getElementById('locationDisplay');
+    var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
     if (lastClickedLocation) {
+        displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
+        
         // Convert lastClickedLocation to a turf.js point
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
         let nearest = null;
