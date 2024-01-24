@@ -105,45 +105,44 @@
     var nearestMarker; // Marker for the nearest location
     var pathLine; // Line between saved and nearest location
 
-    document.getElementById('saveLocation').onclick = function() {
-        // ...existing code...
+document.getElementById('saveLocation').onclick = function() {
+    // ...existing code...
 
-        if (lastClickedLocation && combinedFeatureCollection) {
-            // ...existing code to find the nearest location...
+    if (lastClickedLocation && combinedFeatureCollection) {
+        // ...existing code to find the nearest location...
 
-            if (nearest && nearest.properties && 'P29_004' in nearest.properties) {
-                nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
+        if (nearest && nearest.properties && 'P29_004' in nearest.properties) {
+            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
 
-                // Remove existing nearest marker and line if they exist
-                if (nearestMarker) {
-                    mymap.removeLayer(nearestMarker);
-                }
-                if (pathLine) {
-                    mymap.removeLayer(pathLine);
-                }
-
-                // Add a marker at the nearest location
-                var nearestLatLng = L.latLng(nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]);
-                nearestMarker = L.marker(nearestLatLng).addTo(mymap);
-                nearestMarker.bindPopup(nearest.properties.P29_004).openPopup();
-
-                // Draw a line from the saved location to the nearest location
-                var latlngs = [
-                    [lastClickedLocation.lat, lastClickedLocation.lng],
-                    [nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]
-                ];
-                pathLine = L.polyline(latlngs, {color: 'blue'}).addTo(mymap);
-
-            } else {
-                nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
+            // Remove existing nearest marker and line if they exist
+            if (nearestMarker) {
+                mymap.removeLayer(nearestMarker);
             }
+            if (pathLine) {
+                mymap.removeLayer(pathLine);
+            }
+
+            var nearestLatLng = L.latLng(nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]);
+            nearestMarker = L.marker(nearestLatLng).addTo(mymap);
+            nearestMarker.bindPopup(nearest.properties.P29_004).openPopup();
+
+            var latlngs = [
+                [lastClickedLocation.lat, lastClickedLocation.lng],
+                [nearest.geometry.coordinates[1], nearest.geometry.coordinates[0]]
+            ];
+            pathLine = L.polyline(latlngs, {color: 'blue'}).addTo(mymap);
+
+            console.log("Added marker and line"); // Debugging
         } else {
-            displayElement.textContent = 'No location selected to save or data not loaded';
-            nearestDisplayElement.textContent = ''; // Clear the nearest location display
+            nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
+            console.log("Nearest location found, but property P29_004 is missing"); // Debugging
         }
-    };
-
-
+    } else {
+        displayElement.textContent = 'No location selected to save or data not loaded';
+        nearestDisplayElement.textContent = ''; // Clear the nearest location display
+        console.log("Data not loaded or no location selected"); // Debugging
+    }
+};
 
     </script>
 </body>
