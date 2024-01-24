@@ -102,7 +102,7 @@
             })
             .catch(error => console.error('Error loading GeoJSON:', error));
 
-        document.getElementById('saveLocation').onclick = function() {
+document.getElementById('saveLocation').onclick = function() {
     var displayElement = document.getElementById('locationDisplay');
     var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
 
@@ -117,21 +117,20 @@
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
         const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
 
-        console.log("Nearest location:", nearest); // Detailed logging
+        console.log("Nearest location properties:", nearest.properties); // Detailed logging
 
-        if (nearest && nearest.properties) {
-            // Check if a specific property exists and display it
-            // Replace 'name' with the actual property key you expect in your GeoJSON
-            const nearestInfo = nearest.properties.name || 'No specific info available';
-            nearestDisplayElement.textContent = 'Nearest location info: ' + nearestInfo;
+        // Check if the 'name' property exists and display it
+        if (nearest && nearest.properties && nearest.properties.name) {
+            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.name;
         } else {
-            nearestDisplayElement.textContent = 'Nearest location found, but no additional info available';
+            nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
         }
     } else {
         displayElement.textContent = 'No location selected to save or data not loaded';
         nearestDisplayElement.textContent = ''; // Clear the nearest location display
     }
 };
+
     </script>
 </body>
 </html>
