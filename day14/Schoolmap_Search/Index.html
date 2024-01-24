@@ -10,42 +10,40 @@
             crossorigin=""></script>
         <style>
             .center-content {
-                text-align: center; /* Center text */
-                margin: auto; /* Center the div horizontally */
-                max-width: 800px; /* Optional: set a max-width for the content */
-                padding: 10px; /* Optional: add some padding */
+                text-align: center;
+                margin: auto;
+                max-width: 800px;
+                padding: 10px;
             }
 
             #saveLocation, #locationDisplay, #nearestLocationDisplay {
-                display: inline-block; /* Display inline */
-                vertical-align: middle; /* Align vertically */
-                margin: 10px 5px; /* Spacing around elements */
+                display: inline-block;
+                vertical-align: middle;
+                margin: 10px 5px;
             }
 
-            #locationDisplay {
+            #locationDisplay, #nearestLocationDisplay {
                 border: 1px solid #ddd;
                 background-color: #f9f9f9;
                 padding: 5px 10px;
-                max-width: 400px; /* Limit the width */
-                overflow: hidden; /* Prevent overflow */
-                white-space: nowrap; /* Prevent text wrapping */
-                text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+                max-width: 400px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             #mapid {
                 height: 700px;
             }
-
         </style>
     </head>
 <body>
-
-    <div class="center-content">>
+    <div class="center-content">
         <h1>Kanto school list</h1>
         <h2>~Which school is close to your location？~</h2>
-        <p>Hello! This site displays information about school location near to your location in Kanto area。<br>
-       You just need to click your location on the map。<br>
-        Our system will find out the nearest school from you :)。<br>
+        <p>Hello! This site displays information about school location near to your location in Kanto area.<br>
+       You just need to click your location on the map.<br>
+        Our system will find out the nearest school from you :)<br>
         </p>
     </div>
 
@@ -60,7 +58,7 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
-            
+
         var marker = L.marker([35.66161697606394, 139.36643125161388]).addTo(mymap);
         marker.bindPopup('You are here at Tokyo Metropolitan University.').openPopup();
 
@@ -76,94 +74,60 @@
 
         mymap.on('click', onMapClick);
 
+        function mergeGeoJSONData(geojsonDataArray) {
+            let features = [];
+            geojsonDataArray.forEach(geojsonData => {
+                features = features.concat(geojsonData.features);
+            });
+            return turf.featureCollection(features);
+        }
+
+        const geojsonUrls = [
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_08.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_09.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_10.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_11.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_12.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_13.geojson',
+            'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_14.geojson'
+        ];
+
+        let allGeojsonData = [];
+        let combinedFeatureCollection;
+
+        Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
+            .then(data => {
+                allGeojsonData = data;
+                combinedFeatureCollection = mergeGeoJSONData(allGeojsonData);
+            })
+            .catch(error => console.error('Error loading GeoJSON:', error));
+
         document.getElementById('saveLocation').onclick = function() {
             var displayElement = document.getElementById('locationDisplay');
-            if (lastClickedLocation) {
+            var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
+
+            if (!displayElement || !nearestDisplayElement) {
+                console.error('One or more display elements not found!');
+                return;
+            }
+            
+            if (lastClickedLocation && combinedFeatureCollection) {
                 displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
+                const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
+                const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
+
+                if (nearest) {
+                    nearestDisplayElement.textContent = 'Nearest location: ' + (nearest.properties.name || 'No name available');
+                } else {
+                    nearestDisplayElement.textContent = 'No nearby locations found';
+                }
             } else {
-                displayElement.textContent = 'No location selected to save';
+                displayElement.textContent = 'No location selected to save or data not loaded';
+                nearestDisplayElement.textContent = ''; // Clear the nearest location display
             }
         };
-
-    function findNearestLocation(clickedLocation, geojsonData) {
-    let nearest = null;
-    let minDistance = Infinity;
-
-    geojsonData.features.forEach(feature => {
-        const distance = turf.distance(clickedLocation, feature.geometry.coordinates);
-        if (distance < minDistance) {
-            minDistance = distance;
-            nearest = feature;
-        }
-    });
-
-    return nearest;
-    }
-    // Assuming you have 7 URLs to your GeoJSON files
-const geojsonUrls = [
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_08.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_09.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_10.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_11.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_12.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_13.geojson',
-    'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_14.geojson',
-    
-    // ... more paths ...
-];
-
-let allGeojsonData = [];
-
-// Load all GeoJSON files
-Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
-    .then(data => {
-        allGeojsonData = data; // Store all GeoJSON data
-    })
-    .catch(error => console.error('Error loading GeoJSON:', error));
-
-document.getElementById('saveLocation').onclick = function() {
-    var displayElement = document.getElementById('locationDisplay');
-    var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
-
-    if (!displayElement || !nearestDisplayElement) {
-        console.error('One or more display elements not found!');
-        return;
-    }
-    
-    if (lastClickedLocation) {
-        displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
-        
-        console.log("Last clicked location:", lastClickedLocation); // Debugging
-
-        // Convert lastClickedLocation to a turf.js point
-        const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
-        let nearest = null;
-
-        // Find the nearest location from all loaded GeoJSON files
-        allGeojsonData.forEach(geojsonData => {
-            console.log("Processing GeoJSON data", geojsonData); // Debugging
-            const nearestInFile = findNearestLocation(clickedPoint, geojsonData);
-            if (!nearest || turf.distance(clickedPoint, turf.point([nearest.geometry.coordinates[0], nearest.geometry.coordinates[1]])) > turf.distance(clickedPoint, turf.point([nearestInFile.geometry.coordinates[0], nearestInFile.geometry.coordinates[1]]))) {
-                nearest = nearestInFile;
-            }
-        });
-
-        console.log("Nearest location:", nearest); // Debugging
-
-        if (nearest) {
-            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.name; // Assuming each feature has a 'name' property
-        } else {
-            nearestDisplayElement.textContent = 'No nearby locations found';
-        }
-    } else {
-        displayElement.textContent = 'No location selected to save';
-        nearestDisplayElement.textContent = ''; // Clear the nearest location display
-    }
-};
-    
-        // ... Rest of your existing code ...
-
     </script>
 </body>
 </html>
+
 
