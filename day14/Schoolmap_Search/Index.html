@@ -127,27 +127,32 @@ document.getElementById('saveLocation').onclick = function() {
     if (lastClickedLocation) {
         displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
         
+        console.log("Last clicked location:", lastClickedLocation); // Debugging
+
         // Convert lastClickedLocation to a turf.js point
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
         let nearest = null;
 
         // Find the nearest location from all loaded GeoJSON files
         allGeojsonData.forEach(geojsonData => {
+            console.log("Processing GeoJSON data", geojsonData); // Debugging
             const nearestInFile = findNearestLocation(clickedPoint, geojsonData);
             if (!nearest || turf.distance(clickedPoint, turf.point([nearest.geometry.coordinates[0], nearest.geometry.coordinates[1]])) > turf.distance(clickedPoint, turf.point([nearestInFile.geometry.coordinates[0], nearestInFile.geometry.coordinates[1]]))) {
                 nearest = nearestInFile;
             }
         });
 
+        console.log("Nearest location:", nearest); // Debugging
+
         if (nearest) {
             nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.name; // Assuming each feature has a 'name' property
-                } else {
-                    nearestDisplayElement.textContent = 'No nearby locations found';
-                }
-            } else {
-                displayElement.textContent = 'No location selected to save';
-                nearestDisplayElement.textContent = ''; // Clear the nearest location display
-            }
+        } else {
+            nearestDisplayElement.textContent = 'No nearby locations found';
+        }
+    } else {
+        displayElement.textContent = 'No location selected to save';
+        nearestDisplayElement.textContent = ''; // Clear the nearest location display
+    }
 };
     
         // ... Rest of your existing code ...
