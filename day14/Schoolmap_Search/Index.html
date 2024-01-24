@@ -103,29 +103,35 @@
             .catch(error => console.error('Error loading GeoJSON:', error));
 
         document.getElementById('saveLocation').onclick = function() {
-            var displayElement = document.getElementById('locationDisplay');
-            var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
+    var displayElement = document.getElementById('locationDisplay');
+    var nearestDisplayElement = document.getElementById('nearestLocationDisplay');
 
-            if (!displayElement || !nearestDisplayElement) {
-                console.error('One or more display elements not found!');
-                return;
-            }
-            
-            if (lastClickedLocation && combinedFeatureCollection) {
-                displayElement.textContent = 'Saved location: ' + lastClickedLocation.toString();
-                const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
-                const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
+    if (!displayElement || !nearestDisplayElement) {
+        console.error('One or more display elements not found!');
+        return;
+    }
+    
+    if (lastClickedLocation && combinedFeatureCollection) {
+        displayElement.textContent = 'Saved location: ' + JSON.stringify(lastClickedLocation);
+        
+        const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
+        const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
 
-                if (nearest) {
-                    nearestDisplayElement.textContent = 'Nearest location: ' + (nearest.properties.name || 'No name available');
-                } else {
-                    nearestDisplayElement.textContent = 'No nearby locations found';
-                }
-            } else {
-                displayElement.textContent = 'No location selected to save or data not loaded';
-                nearestDisplayElement.textContent = ''; // Clear the nearest location display
-            }
-        };
+        console.log("Nearest location:", nearest); // Detailed logging
+
+        if (nearest && nearest.properties) {
+            // Check if a specific property exists and display it
+            // Replace 'name' with the actual property key you expect in your GeoJSON
+            const nearestInfo = nearest.properties.name || 'No specific info available';
+            nearestDisplayElement.textContent = 'Nearest location info: ' + nearestInfo;
+        } else {
+            nearestDisplayElement.textContent = 'Nearest location found, but no additional info available';
+        }
+    } else {
+        displayElement.textContent = 'No location selected to save or data not loaded';
+        nearestDisplayElement.textContent = ''; // Clear the nearest location display
+    }
+};
     </script>
 </body>
 </html>
