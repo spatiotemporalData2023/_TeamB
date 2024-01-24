@@ -84,6 +84,67 @@
             }
         };
 
+    function findNearestLocation(clickedLocation, geojsonData) {
+    let nearest = null;
+    let minDistance = Infinity;
+
+    geojsonData.features.forEach(feature => {
+        const distance = turf.distance(clickedLocation, feature.geometry.coordinates);
+        if (distance < minDistance) {
+            minDistance = distance;
+            nearest = feature;
+        }
+    });
+
+    return nearest;
+    }
+    // Assuming you have 7 URLs to your GeoJSON files
+const geojsonUrls = [
+    './data/P29-21_08.geojson',
+    './data/P29-21_09.geojson',
+    './data/P29-21_10.geojson',
+    './data/P29-21_11.geojson',
+    './data/P29-21_12.geojson',
+    './data/P29-21_13.geojson',
+    './data/P29-21_14.geojson',
+    
+    // ... more paths ...
+];
+
+let allGeojsonData = [];
+
+// Load all GeoJSON files
+Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
+    .then(data => {
+        allGeojsonData = data; // Store all GeoJSON data
+    })
+    .catch(error => console.error('Error loading GeoJSON:', error));
+
+document.getElementById('saveLocation').onclick = function() {
+    var displayElement = document.getElementById('locationDisplay');
+    if (lastClickedLocation) {
+        // Convert lastClickedLocation to a turf.js point
+        const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
+        let nearest = null;
+
+        // Find the nearest location from all loaded GeoJSON files
+        allGeojsonData.forEach(geojsonData => {
+            const nearestInFile = findNearestLocation(clickedPoint, geojsonData);
+            if (!nearest || turf.distance(clickedPoint, turf.point([nearest.geometry.coordinates[0], nearest.geometry.coordinates[1]])) > turf.distance(clickedPoint, turf.point([nearestInFile.geometry.coordinates[0], nearestInFile.geometry.coordinates[1]]))) {
+                nearest = nearestInFile;
+            }
+        });
+
+        if (nearest) {
+            displayElement.textContent = 'Nearest location: ' + nearest.properties.name; // Assuming each feature has a 'name' property
+        } else {
+            displayElement.textContent = 'No nearby locations found';
+        }
+    } else {
+        displayElement.textContent = 'No location selected to save';
+    }
+};
+    
         // ... Rest of your existing code ...
 
     </script>
