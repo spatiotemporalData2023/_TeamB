@@ -110,24 +110,28 @@ document.getElementById('saveLocation').onclick = function() {
         console.error('One or more display elements not found!');
         return;
     }
-    
+
     if (lastClickedLocation && combinedFeatureCollection) {
         displayElement.textContent = 'Saved location: ' + JSON.stringify(lastClickedLocation);
-        
+
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
         const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
 
-        // Display the 'P29_004' property (school name) of the nearest feature
-        if (nearest && nearest.properties && nearest.properties.P29_004) {
+        // Debugging - Log the properties of the nearest feature
+        console.log("Nearest location properties:", nearest.properties);
+
+        // Display the 'P29_004' property of the nearest feature
+        if (nearest && nearest.properties && 'P29_004' in nearest.properties) {
             nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
         } else {
-            nearestDisplayElement.textContent = 'Nearest location found, but no specific school name available';
+            nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
         }
     } else {
         displayElement.textContent = 'No location selected to save or data not loaded';
         nearestDisplayElement.textContent = ''; // Clear the nearest location display
     }
 };
+
 
 
     </script>
