@@ -139,13 +139,14 @@ document.getElementById('saveLocation').onclick = function() {
         });
 
         if (nearest) {
-            displayElement.textContent = 'Nearest location: ' + nearest.properties.name; // Assuming each feature has a 'name' property
-        } else {
-            displayElement.textContent = 'No nearby locations found';
-        }
-    } else {
-        displayElement.textContent = 'No location selected to save';
-    }
+            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.name; // Assuming each feature has a 'name' property
+                } else {
+                    nearestDisplayElement.textContent = 'No nearby locations found';
+                }
+            } else {
+                displayElement.textContent = 'No location selected to save';
+                nearestDisplayElement.textContent = ''; // Clear the nearest location display
+            }
 };
     
         // ... Rest of your existing code ...
