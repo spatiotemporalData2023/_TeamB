@@ -117,19 +117,18 @@ document.getElementById('saveLocation').onclick = function() {
         const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
         const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
 
-        console.log("Nearest location properties:", nearest.properties); // Detailed logging
-
-        // Check if the 'name' property exists and display it
-        if (nearest && nearest.properties && nearest.properties.name) {
-            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.name;
+        // Display the 'P29_004' property (school name) of the nearest feature
+        if (nearest && nearest.properties && nearest.properties.P29_004) {
+            nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
         } else {
-            nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
+            nearestDisplayElement.textContent = 'Nearest location found, but no specific school name available';
         }
     } else {
         displayElement.textContent = 'No location selected to save or data not loaded';
         nearestDisplayElement.textContent = ''; // Clear the nearest location display
     }
 };
+
 
     </script>
 </body>
