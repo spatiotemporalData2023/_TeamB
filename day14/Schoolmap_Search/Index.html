@@ -39,7 +39,7 @@
     </head>
 <body>
     <div class="center-content">
-        <h1>Kanto school list</h1>
+        <h1>Kanto school search</h1>
         <h2>~Which school is close to your location？~</h2>
         <p>Hello! This site displays information about school location near to your location in Kanto area.<br>
        You just need to click your location on the map.<br>
@@ -113,24 +113,30 @@ document.getElementById('saveLocation').onclick = function() {
         return;
     }
 
-        if (lastClickedLocation && combinedFeatureCollection) {
+       if (lastClickedLocation && combinedFeatureCollection) {
             displayElement.textContent = 'Saved location: ' + JSON.stringify(lastClickedLocation);
 
             const clickedPoint = turf.point([lastClickedLocation.lng, lastClickedLocation.lat]);
             const nearest = turf.nearestPoint(clickedPoint, combinedFeatureCollection);
 
-            // ...rest of the code to process nearest point...
+            // Remove existing nearest layer if it exists
+            if (nearestLayer) {
+                mymap.removeLayer(nearestLayer);
+            }
 
             if (nearest && nearest.properties && 'P29_004' in nearest.properties) {
                 nearestDisplayElement.textContent = 'Nearest location: ' + nearest.properties.P29_004;
-                
+
                 // Calculate and display the distance
                 const distance = turf.distance(clickedPoint, nearest, { units: 'kilometers' });
                 distanceDisplayElement.textContent = 'Distance: ' + distance.toFixed(2) + ' km';
 
+                // Create a GeoJSON layer for the nearest point and add it to the map
+                nearestLayer = L.geoJson(nearest).addTo(mymap);
+
             } else {
                 nearestDisplayElement.textContent = 'Nearest location found, but no specific name available';
-                distanceDisplayElement.textContent = ''; // Clear the distance display
+                distanceDisplayElement.textContent = '';
             }
         } else {
             displayElement.textContent = 'No location selected to save or data not loaded';
@@ -138,7 +144,6 @@ document.getElementById('saveLocation').onclick = function() {
             distanceDisplayElement.textContent = ''; // Clear the distance display
         }
     };
-
 
 
     </script>
