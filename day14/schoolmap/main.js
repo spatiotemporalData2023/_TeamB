@@ -4,11 +4,13 @@
 
 // ページロード時にクエリパラメータを取得
 const urlParams = new URLSearchParams(window.location.search);
-
 // 各変数を取得
 const lat = parseFloat(urlParams.get('lat'));
 const lng = parseFloat(urlParams.get('lng'));
 const path = urlParams.get('path');
+
+const maxDistance = parseFloat(urlParams.get('eps'));
+const MinPts = parseFloat(urlParams.get('MinPts'));
 
 // ここで取得した変数を使用してページの表示をカスタマイズ
 // 例: ページに変数の値を表示するなど
@@ -34,8 +36,7 @@ fetch(path)
   .then(response => response.json())
   // GeoJSONを地図に追加
   .then(data => {
-        var maxDistance = 2;
-        var clustered = turf.clustersDbscan(data, maxDistance); //DBSCANを実行
+        var clustered = turf.clustersDbscan(data, maxDistance, {minPoints: MinPts}); //DBSCANを実行
         var cluster_size = 100;
 
         const color_array = ['aqua', 'blue', 'fuchsia', 'gray', 'yellow',
@@ -87,4 +88,3 @@ fetch(path)
 
         }).addTo(map);
     });
-
