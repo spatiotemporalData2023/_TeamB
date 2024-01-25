@@ -112,6 +112,21 @@ document.getElementById('highSchool').onclick = () => handleSchoolTypeButtonClic
 document.getElementById('university').onclick = () => handleSchoolTypeButtonClick('大学', 'University');
 
 // Existing JavaScript code...
+document.getElementById('saveLocation').onclick = function() {
+    if (!selectedSchoolType) {
+        alert("Please select a school type to see the location.");
+        return;
+    }
+
+    // Remove the nearest marker if it exists
+    if (nearestLayer) {
+        mymap.removeLayer(nearestLayer);
+        nearestLayer = null;
+    }
+
+    const nearestSchool = findNearestSchool(selectedSchoolType);
+    updateDisplayWithNearestSchool(nearestSchool);
+};
 
 document.getElementById('setLocation').onclick = function() {
     var lat = parseFloat(document.getElementById('latitude').value);
