@@ -5,7 +5,7 @@
                 padding: 10px;
             }
 
-            #saveLocation, #locationDisplay, #nearestLocationDisplay, #coordinatesDisplay, #distanceDisplay, #kindergarten, #elementary, #middleSchool, #highSchool, #university {
+            #saveLocation, #locationDisplay, #nearestLocationDisplay, #coordinatesDisplay, #distanceDisplay, #SchoolTypeDisplay, #kindergarten, #elementary, #middleSchool, #highSchool, #university {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 10px 5px;
