@@ -108,7 +108,7 @@ document.getElementById('university').onclick = () => handleSchoolTypeButtonClic
 
 document.getElementById('saveLocation').onclick = function() {
     if (!selectedSchoolType) {
-        alert("Please select a school type before saving the location.");
+        alert("Please select a school type to see the location.");
         return;
     }
 
