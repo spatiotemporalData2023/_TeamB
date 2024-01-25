@@ -39,6 +39,7 @@
             'https://raw.githubusercontent.com/spatiotemporalData2023/_TeamB/main/day14/Schoolmap_Search/data/P29-21_14.geojson'
         ];
 
+let allGeojsonData = [];
 Promise.all(geojsonUrls.map(url => fetch(url).then(resp => resp.json())))
     .then(data => {
         allGeojsonData = data;
