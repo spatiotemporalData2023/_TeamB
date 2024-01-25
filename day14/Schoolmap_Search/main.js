@@ -98,6 +98,7 @@ function handleSchoolTypeButtonClick(schoolType, displayText) {
     
     // Update the display with the school type text
     var schoolTypeDisplayElement = document.getElementById('selectedSchoolTypeDisplay');
+         console.log(schoolTypeDisplayElement);
     schoolTypeDisplayElement.textContent = displayText;
 
     const nearestSchool = findNearestSchool(schoolType);
