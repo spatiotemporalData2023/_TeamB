@@ -1,4 +1,4 @@
-var nearestLayer;
+         var nearestLayer;
          var selectedSchoolType = null;
         var mymap = L.map('mapid').setView([35.66161697606394, 139.36643125161388], 15);
 
