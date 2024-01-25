@@ -93,18 +93,23 @@ function updateDisplayWithNearestSchool(nearestSchool) {
     }
 }
 
-function handleSchoolTypeButtonClick(schoolType) {
+function handleSchoolTypeButtonClick(schoolType, displayText) {
     selectedSchoolType = schoolType;
+    
+    // Update the display with the school type text
+    var schoolTypeDisplayElement = document.getElementById('selectedSchoolTypeDisplay');
+    schoolTypeDisplayElement.textContent = displayText;
+
     const nearestSchool = findNearestSchool(schoolType);
     updateDisplayWithNearestSchool(nearestSchool);
 }
 
 // Attach event listeners to buttons
-document.getElementById('kindergarten').onclick = () => handleSchoolTypeButtonClick('幼稚園');
-document.getElementById('elementary').onclick = () => handleSchoolTypeButtonClick('小学校');
-document.getElementById('middleSchool').onclick = () => handleSchoolTypeButtonClick('中学校');
-document.getElementById('highSchool').onclick = () => handleSchoolTypeButtonClick('高等学校');
-document.getElementById('university').onclick = () => handleSchoolTypeButtonClick('大学');
+document.getElementById('kindergarten').onclick = () => handleSchoolTypeButtonClick('幼稚園', 'Kindergarten');
+document.getElementById('elementary').onclick = () => handleSchoolTypeButtonClick('小学校', 'Elementary School');
+document.getElementById('middleSchool').onclick = () => handleSchoolTypeButtonClick('中学校', 'Middle School');
+document.getElementById('highSchool').onclick = () => handleSchoolTypeButtonClick('高等学校', 'High School');
+document.getElementById('university').onclick = () => handleSchoolTypeButtonClick('大学', 'University');
 
 document.getElementById('saveLocation').onclick = function() {
     if (!selectedSchoolType) {
