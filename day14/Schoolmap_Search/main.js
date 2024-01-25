@@ -112,7 +112,7 @@ document.getElementById('middleSchool').onclick = () => handleSchoolTypeButtonCl
 document.getElementById('highSchool').onclick = () => handleSchoolTypeButtonClick('高等学校', 'High School');
 document.getElementById('university').onclick = () => handleSchoolTypeButtonClick('大学', 'University');
 
-// Existing JavaScript code...
+// save location - button clicked
 document.getElementById('saveLocation').onclick = function() {
     if (!selectedSchoolType) {
         alert("Please select a school type to see the location.");
@@ -129,6 +129,7 @@ document.getElementById('saveLocation').onclick = function() {
     updateDisplayWithNearestSchool(nearestSchool);
 };
 
+// set location - button clicked
 document.getElementById('setLocation').onclick = function() {
     var lat = parseFloat(document.getElementById('latitude').value);
     var lng = parseFloat(document.getElementById('longitude').value);
