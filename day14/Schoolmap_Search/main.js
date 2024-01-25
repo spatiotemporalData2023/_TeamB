@@ -116,7 +116,6 @@ document.getElementById('saveLocation').onclick = function() {
         alert("Please select a school type to see the location.");
         return;
     }
-
     const nearestSchool = findNearestSchool(selectedSchoolType);
     updateDisplayWithNearestSchool(nearestSchool);
 };
