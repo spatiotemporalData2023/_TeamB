@@ -111,12 +111,27 @@ document.getElementById('middleSchool').onclick = () => handleSchoolTypeButtonCl
 document.getElementById('highSchool').onclick = () => handleSchoolTypeButtonClick('高等学校', 'High School');
 document.getElementById('university').onclick = () => handleSchoolTypeButtonClick('大学', 'University');
 
-document.getElementById('saveLocation').onclick = function() {
-    if (!selectedSchoolType) {
-        alert("Please select a school type to see the location.");
-        return;
-    }
+// Existing JavaScript code...
 
-    const nearestSchool = findNearestSchool(selectedSchoolType);
-    updateDisplayWithNearestSchool(nearestSchool);
+document.getElementById('setLocation').onclick = function() {
+    var lat = parseFloat(document.getElementById('latitude').value);
+    var lng = parseFloat(document.getElementById('longitude').value);
+
+    if (!isNaN(lat) && !isNaN(lng)) {
+        lastClickedLocation = { lat: lat, lng: lng };
+        marker.setLatLng(lastClickedLocation).update();
+        mymap.setView(lastClickedLocation, 15);
+
+        // Clear the input fields
+        document.getElementById('latitude').value = '';
+        document.getElementById('longitude').value = '';
+
+        // Optional: Find and display nearest school if a type is selected
+        if (selectedSchoolType) {
+            const nearestSchool = findNearestSchool(selectedSchoolType);
+            updateDisplayWithNearestSchool(nearestSchool);
+        }
+    } else {
+        alert("Please enter valid latitude and longitude values.");
+    }
 };
