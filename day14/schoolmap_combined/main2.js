@@ -7,7 +7,7 @@
         }).addTo(mymap);
 
         var marker = L.marker([35.66161697606394, 139.36643125161388]).addTo(mymap);
-        marker.bindPopup('You are here at Tokyo Metropolitan University.').openPopup();
+        marker.bindPopup('You are here').openPopup();
 
         var lastClickedLocation = null;
 
