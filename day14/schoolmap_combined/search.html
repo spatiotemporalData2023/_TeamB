@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style2.css">
+        
+        <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+        
+    </head>
+<body>
+    <div class="center-content">
+        <h1>Kanto school search</h1>
+        <h2>~Which school is near to your location？~</h2>
+        <p>Hello! This site displays information about school location near to your location in Kanto area.<br>
+       Click your location on the map, or manually input a coordinate, select school type, and save the location.<br>
+        Our system will find out the nearest school from you :)<br>
+        </p>
+    </div>
+
+    <button id="saveLocation">Save Location</button>
+    <div class="school-type-buttons">
+    <button id="kindergarten">幼稚園</button>
+    <button id="elementary">小学校</button>
+    <button id="middleSchool">中学校</button>
+    <button id="highSchool">高等学校</button>
+    <button id="university">大学</button>
+    </div>
+    
+    <div id="locationDisplay">Saved location will appear here</div>
+    <div id="nearestLocationDisplay">Nearest location will appear here</div>
+    <div id="coordinatesDisplay">The coordinate of nearest location will appear here</div>
+    <div id="distanceDisplay">The distance of nearest location will appear here</div>
+    <div id="selectedSchoolTypeDisplay">The selected school type will appear here</div>
+
+    <div>
+    <label for="latitude">Latitude:</label>
+    <input type="text" id="latitude" placeholder="Enter latitude">
+    <label for="longitude">Longitude:</label>
+    <input type="text" id="longitude" placeholder="Enter longitude">
+    <button id="setLocation">Set Location</button>
+
+
+    <div id="mapid"></div>
+
+    <script src="main2.js"></script>
+</body>
+</html>

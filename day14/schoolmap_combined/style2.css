@@ -1,0 +1,52 @@
+.center-content {
+    text-align: center;
+    margin: auto;
+    max-width: 1000px;
+    padding: 5px;
+}
+
+#saveLocation, 
+#locationDisplay, 
+#nearestLocationDisplay, 
+#coordinatesDisplay, 
+#distanceDisplay, 
+#schoolTypeDisplay, 
+#kindergarten, 
+#elementary, 
+#middleSchool, 
+#highSchool, 
+#university,
+#latitudeLabel, #longitudeLabel,  /* Add IDs for your labels */
+#latitude, #longitude,           /* Add IDs for your input fields */
+#setLocation {                   /* Add ID for your 'Set Location' button */
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 5px;
+}
+
+#locationDisplay, 
+#nearestLocationDisplay, 
+#coordinatesDisplay, 
+#distanceDisplay {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    padding: 5px 10px;
+    max-width: 400px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#mapid {
+    height: 700px;
+}
+
+/* Styles for labels and input fields */
+#latitudeLabel, #longitudeLabel {
+    margin-right: 5px; /* Space between label and input field */
+}
+
+#latitude, #longitude {
+    width: 100px; /* Adjust width as needed */
+}
+
